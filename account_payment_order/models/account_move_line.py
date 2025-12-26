@@ -61,6 +61,8 @@ class AccountMoveLine(models.Model):
     def _prepare_payment_line_vals(self, payment_order):
         self.ensure_one()
         communication_type, communication = self._get_communication()
+        if self.move_id.payment_reference:
+            communication = self.move_id.payment_reference
         if self.currency_id:
             currency_id = self.currency_id.id
             amount_currency = self.amount_residual_currency
